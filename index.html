@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}</style>
+<title>Prezenty na Mont Blanc</title>
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: wąska kolumna jak notatnik wyprawowy; przedziały cenowe jako „strefy wysokości” z profilem góry w nagłówku */
+:root {
+  --bg: #f3f6f8;
+  --surface: #ffffff;
+  --fg: #16232e;
+  --muted: #5a6b78;
+  --line: #d6e0e7;
+  --accent: #1f5f8b;
+  --accent-soft: #e2eef6;
+  --warn: #9a5b00;
+  --warn-soft: #fbefd9;
+  --ok: #2c6e3f;
+  --ok-soft: #e1f1e5;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Work Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f171e; --surface: #16212b; --fg: #e4ecf2; --muted: #93a6b5; --line: #263644;
+    --accent: #7cb8e0; --accent-soft: #1a3142; --warn: #f0b660; --warn-soft: #3a2a12; --ok: #8fd3a2; --ok-soft: #173326; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f171e; --surface: #16212b; --fg: #e4ecf2; --muted: #93a6b5; --line: #263644;
+  --accent: #7cb8e0; --accent-soft: #1a3142; --warn: #f0b660; --warn-soft: #3a2a12; --ok: #8fd3a2; --ok-soft: #173326; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 760px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 36px; }
+header { display: flex; flex-direction: column; gap: 12px; }
+.ridge { width: 100%; height: 70px; display: block; }
+.ridge path.fill { fill: var(--accent-soft); }
+.ridge path.stroke { fill: none; stroke: var(--accent); stroke-width: 2; }
+.ridge circle { fill: var(--accent); }
+.ridge text { fill: var(--muted); font-family: var(--mono); font-size: 11px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--display); font-size: clamp(30px, 6vw, 44px); line-height: 1.1; margin: 0; text-wrap: balance; }
+.lead { color: var(--muted); max-width: 62ch; margin: 0; }
+.notes { display: grid; gap: 8px; background: var(--warn-soft); border-radius: 10px; padding: 14px 16px; font-size: 15px; }
+.notes strong { color: var(--warn); }
+.notes p { margin: 0; }
+section { display: flex; flex-direction: column; gap: 12px; }
+.tier-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 2px solid var(--fg); padding-bottom: 6px; }
+h2 { font-family: var(--display); font-size: 24px; margin: 0; }
+.tier-alt { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+li > div { min-width: 0; }
+.name { font-weight: 600; }
+.name a { color: var(--fg); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.name a:hover, .name a:focus-visible { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.why { color: var(--muted); font-size: 14.5px; margin-top: 2px; }
+.price { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 15px; text-align: right; white-space: nowrap; }
+.price small { display: block; color: var(--muted); font-size: 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tag { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.tag.hot { background: var(--warn-soft); color: var(--warn); }
+.claim { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 4px; font-size: 14px; }
+.claim button { font: inherit; font-weight: 600; font-size: 14px; border-radius: 8px; padding: 6px 14px; cursor: pointer; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); }
+.claim button.primary { background: var(--accent); color: var(--surface); }
+.claim button.link { border: none; background: none; padding: 6px 4px; color: var(--muted); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.claim button:focus-visible, .claim input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.claim input { font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); min-width: 0; width: 12em; }
+.claim .taken { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; background: var(--ok-soft); color: var(--ok); font-weight: 600; }
+.claim .err { color: var(--warn); }
+li.is-taken .name a, li.is-taken .why { opacity: .55; }
+.status { font-size: 13.5px; color: var(--muted); }
+footer { color: var(--muted); font-size: 13.5px; border-top: 1px solid var(--line); padding-top: 14px; }
+@media (max-width: 480px) { li { grid-template-columns: 1fr; } .price { text-align: left; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <svg class="ridge" viewBox="0 0 760 70" preserveAspectRatio="none" aria-hidden="true">
+      <path class="fill" d="M0 70 L0 58 L90 50 L170 54 L250 38 L330 44 L420 22 L470 30 L520 10 L560 24 L640 34 L700 46 L760 50 L760 70 Z"/>
+      <path class="stroke" d="M0 58 L90 50 L170 54 L250 38 L330 44 L420 22 L470 30 L520 10 L560 24 L640 34 L700 46 L760 50"/>
+      <circle cx="520" cy="10" r="3.5"/>
+    </svg>
+    <div class="eyebrow">Mont Blanc · 4808 m · marzenie taty</div>
+    <h1>Prezenty dla taty na wyprawę na Mont Blanc</h1>
+    <p class="lead">Wejście na Mont Blanc to marzenie taty (50 lat). Może uda się je spełnić latem 2027, drogą normalną przez Goûter. Tata ma już podstawowy sprzęt po Grossglocknerze. Poniżej rzeczy, które przydadzą się na lodowcu i przybliżą go do tego celu, pogrupowane według budżetu.</p>
+    <div class="notes">
+      <p><strong>Zanim coś kupisz, napisz do Marcina,</strong> żeby dwie osoby nie kupiły tego samego.</p>
+      <p><strong>Ubrania:</strong> zapytaj Marcina o rozmiar taty.</p>
+      <p><strong>Ceny</strong> sprawdzone 24.10.2026 i mogą się zmienić.</p>
+    </div>
+  </header>
+
+  <section aria-labelledby="t1">
+    <div class="tier-head"><h2 id="t1">Do 150 zł</h2><span class="tier-alt">baza</span></div>
+    <ul>
+      <li data-id="termos-075"><div>
+        <div class="name"><a href="https://allegro.pl/produkt/termos-prozniowy-esbit-0-75-l-czarny-podwojne-scianki-e20a7cd9-e45e-44d6-b08e-76576dbc39b2">Termos Esbit Vacuum Flask 0,75 l</a></div>
+        <div class="why">Gorąca herbata na ataku szczytowym. Lżejszy od wersji 1 l.</div>
+        <div class="tags"><span class="tag">4,94 · 6857 opinii</span></div>
+      </div><div class="price">119 zł<small>z dostawą</small></div></li>
+      <li data-id="termos-1l"><div>
+        <div class="name"><a href="https://allegro.pl/produkt/termos-esbit-klasyczny-vacuum-flask-1-l-czarny-1ea954a3-cce6-4f68-a212-1e47ca049663">Termos Esbit Vacuum Flask 1 l</a></div>
+        <div class="why">Większa wersja tego samego termosu.</div>
+        <div class="tags"><span class="tag">4,97 · 4406 opinii</span></div>
+      </div><div class="price">133 zł<small>z dostawą</small></div></li>
+      <li data-id="koszulka-fresh"><div>
+        <div class="name"><a href="https://www.decathlon.pl/p/koszulka-meska-trekkingowa-z-dlugim-rekawem-simond-merino-fresh/4523/c363c363m8977572">Koszulka merino Simond Merino Fresh, długi rękaw</a></div>
+        <div class="why">Pierwsza warstwa z wełny merino. Grzeje, odprowadza pot i nie śmierdzi po kilku dniach w schronisku.</div>
+        <div class="tags"><span class="tag">4,8 · 1403 opinie</span><span class="tag">potrzebny rozmiar</span></div>
+      </div><div class="price">130 zł<small>Second Life: 110 zł</small></div></li>
+      <li data-id="mapa-ign"><div>
+        <div class="name"><a href="https://allegro.pl/listing?string=mapa%20IGN%203630OT">Mapa IGN Top 25 3630OT Chamonix · Massif du Mont Blanc</a></div>
+        <div class="why">Mapa turystyczna w skali 1:25 000 z całą trasą przez Goûter. Dobry dodatek do vouchera na wyprawę.</div>
+      </div><div class="price">~70 zł</div></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="t2">
+    <div class="tier-head"><h2 id="t2">150–300 zł</h2><span class="tier-alt">ochrona na lodowcu</span></div>
+    <ul>
+      <li data-id="julbo-montebianco"><div>
+        <div class="name"><a href="https://allegro.pl/produkt/okulary-julbo-montebianco-2-spectron-4-blue-j5411238-eace6226-de0d-4ed3-a613-edbaf8b9e2c4">Okulary lodowcowe Julbo Montebianco 2 Spectron 4</a></div>
+        <div class="why">Kategoria 4 z bocznymi osłonami, obowiązkowe na śniegu powyżej 4000 m. Model nazywa się po włosku „Mont Blanc”.</div>
+        <div class="tags"><span class="tag hot">polecane</span><span class="tag">kat. 4</span></div>
+      </div><div class="price">279 zł<small>z dostawą</small></div></li>
+      <li data-id="gog-makalu"><div>
+        <div class="name"><a href="https://allegro.pl/produkt/okulary-przeciwsloneczne-gog-makalu-2387ed43-56d7-42bd-94b2-a9181296a053">Okulary lodowcowe GOG Makalu, polaryzacja</a></div>
+        <div class="why">Tańsza alternatywa dla Julbo, też kategorii 4.</div>
+        <div class="tags"><span class="tag">kat. 4</span><span class="tag">4,75</span></div>
+      </div><div class="price">269 zł<small>z dostawą</small></div></li>
+      <li data-id="arctica-s107"><div>
+        <div class="name"><a href="https://allegro.pl/produkt/okulary-wysokogorskie-arctica-s-107-kat-4-uv400-lustrzane-antifog-968be427-a780-4a41-b440-c07414a43fa5">Okulary górskie Arctica S-107</a></div>
+        <div class="why">Najtańsze sensowne okulary kategorii 4.</div>
+        <div class="tags"><span class="tag">kat. 4</span><span class="tag">4,82 · 240 opinii</span></div>
+      </div><div class="price">169 zł</div></li>
+      <li data-id="legginsy-mt500"><div>
+        <div class="name"><a href="https://www.decathlon.pl/p/legginsy-trekkingowe-meskie-simond-mt500-merino/301655/c378m8501932">Legginsy merino Simond MT500</a></div>
+        <div class="why">Pod spodnie na nocne wyjście na szczyt i na noc w schronisku.</div>
+        <div class="tags"><span class="tag">4,8 · 951 opinii</span><span class="tag">potrzebny rozmiar</span></div>
+      </div><div class="price">180 zł</div></li>
+      <li data-id="koszulka-resist"><div>
+        <div class="name"><a href="https://www.decathlon.pl/p/koszulka-meska-trekkingowa-z-dlugim-rekawem-simond-merino-resist/356377/c43c43m8901502">Koszulka merino Simond Merino Resist</a></div>
+        <div class="why">Grubsza i trwalsza wersja koszulki merino.</div>
+        <div class="tags"><span class="tag">4,8 · 676 opinii</span><span class="tag">potrzebny rozmiar</span></div>
+      </div><div class="price">200 zł</div></li>
+      <li data-id="spodnie-alpinism"><div>
+        <div class="name"><a href="https://www.decathlon.pl/p/spodnie-alpinistyczne-meskie-simond-alpinism-light/334254/c71m8648882">Spodnie alpinistyczne Simond Alpinism Light</a></div>
+        <div class="why">Lekkie spodnie do alpinizmu w lecie, zrobione z myślą o rakach i uprzęży.</div>
+        <div class="tags"><span class="tag">4,7 · 360 opinii</span><span class="tag">potrzebny rozmiar</span></div>
+      </div><div class="price">300 zł</div></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="t3">
+    <div class="tier-head"><h2 id="t3">300–500 zł</h2><span class="tier-alt">większy prezent</span></div>
+    <ul>
+      <li data-id="kurtka-alpinism"><div>
+        <div class="name"><a href="https://www.decathlon.pl/p/kurtka-alpinistyczna-meska-simond-alpinism-light/161091/c112c67m8544950">Kurtka alpinistyczna Simond Alpinism Light</a></div>
+        <div class="why">Nieprzemakalna i wiatroodporna kurtka na grań. Na Mont Blanc najważniejsza warstwa.</div>
+        <div class="tags"><span class="tag hot">kod EXTRA10 do 1.11</span><span class="tag">4,5 · 157 opinii</span><span class="tag">potrzebny rozmiar</span></div>
+      </div><div class="price">405 zł<small>było 600 zł</small></div></li>
+      <li data-id="alpenverein"><div>
+        <div class="name"><a href="https://www.alpenverein.pl/news-80-promocja-wrzesniowa-czlonkostwo-alpenverein-4-miesiace-gratis">Członkostwo w Alpenverein na 2027 rok</a></div>
+        <div class="why">Ubezpieczenie ratownicze w górach na cały świat (w tym śmigłowiec) i zniżki w schroniskach. Do zakupu potrzebne są dane taty.</div>
+        <div class="tags"><span class="tag hot">reszta 2026 gratis</span><span class="tag">uzgodnij z Marcinem</span></div>
+      </div><div class="price">380 zł</div></li>
+      <li data-id="julbo-camino"><div>
+        <div class="name"><a href="https://allegro.pl/produkt/okulary-julbo-j5011214-3f49d3a7-d168-4219-9ddd-31607c33c394">Okulary lodowcowe Julbo Camino Spectron 4</a></div>
+        <div class="why">Bardziej sportowa alternatywa dla Montebianco.</div>
+        <div class="tags"><span class="tag">kat. 4</span><span class="tag">5,0 · 7 opinii</span></div>
+      </div><div class="price">314 zł<small>z dostawą</small></div></li>
+      <li data-id="kurtka-puchowa"><div>
+        <div class="name"><a href="https://www.decathlon.pl/p/kurtka-puchowa-meska-z-kapturem-simond-alpinism-12degc/347966/c184c274m8992574">Kurtka puchowa Simond Alpinism −12°C</a></div>
+        <div class="why">Ciepła warstwa na postoje i na sam szczyt.</div>
+        <div class="tags"><span class="tag">4,8 · 816 opinii</span><span class="tag">potrzebny rozmiar</span></div>
+      </div><div class="price">500 zł<small><a href="https://www.decathlon.pl/p/second-life-kurtka-puchowa-meska-z-kapturem-simond-alpinism-12degc/347966-N/c356c443m8883230-N" style="color:inherit">Second Life: 359 zł</a></small></div></li>
+    </ul>
+  </section>
+
+  <footer>Second Life to rzeczy zwrócone do Decathlonu, sprawdzone i sprzedawane z gwarancją.</footer>
+</div>
+
+</body>
+</html>
